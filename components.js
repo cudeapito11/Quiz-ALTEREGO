@@ -224,6 +224,16 @@ function renderChartScreen(screen) {
   requestAnimationFrame(function () {
     requestAnimationFrame(function () {
       length = path.getTotalLength();
+      var svgEl = wrap.querySelector('.chart-svg');
+      var wrapRect = wrap.querySelector('.chart-svg-wrap').getBoundingClientRect();
+      var svgRect = svgEl.getBoundingClientRect();
+      var pathRect = path.getBoundingClientRect();
+      console.log('[DEBUG CHART] length:', length);
+      console.log('[DEBUG CHART] wrap rect:', JSON.stringify(wrapRect));
+      console.log('[DEBUG CHART] svg rect:', JSON.stringify(svgRect));
+      console.log('[DEBUG CHART] path rect:', JSON.stringify(pathRect));
+      console.log('[DEBUG CHART] svg computed display:', getComputedStyle(svgEl).display, 'visibility:', getComputedStyle(svgEl).visibility, 'opacity:', getComputedStyle(svgEl).opacity);
+      console.log('[DEBUG CHART] chart-card rect:', JSON.stringify(wrap.querySelector('.chart-card').getBoundingClientRect()));
       path.style.strokeDasharray = length;
       path.style.strokeDashoffset = length;
 
