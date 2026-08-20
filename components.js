@@ -172,13 +172,7 @@ function renderChartScreen(screen) {
   var dot14 = wrap.querySelector('#dot-14');
   var dotEnd = wrap.querySelector('#dot-end');
 
-  var length = path.getTotalLength();
-  path.style.strokeDasharray = length;
-  path.style.strokeDashoffset = length;
-  path.style.transition = 'stroke-dashoffset ' + CHART_ANIM_MS + 'ms ease';
-
-  areaPath.style.opacity = '0';
-  areaPath.style.transition = 'opacity ' + CHART_ANIM_MS + 'ms ease';
+  var length = 0;
 
   function tAtPoint(target) {
     var best = 0, bestDist = Infinity;
@@ -219,15 +213,35 @@ function renderChartScreen(screen) {
     }, CHART_ANIM_MS);
   }
 
-  var observer = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        playAnimation();
-        observer.disconnect();
-      }
+  // path.getTotalLength() e o IntersectionObserver precisam do SVG já conectado
+  // ao document. Nesse ponto o wrap retornado por renderChartScreen ainda está
+  // fora do DOM (render.js só faz o appendChild depois desta função retornar),
+  // e em navegadores mobile (WebKit/Safari em especial) isso faz getTotalLength()
+  // voltar 0 e o observer nunca reportar interseção — deixando visíveis só os
+  // 3 pontos estáticos do SVG, sem linha e sem o marcador "Hoje". Adiar pro
+  // próximo frame (mesmo padrão de duplo rAF já usado em render.js) garante
+  // que o elemento já esteja anexado e com layout calculado.
+  requestAnimationFrame(function () {
+    requestAnimationFrame(function () {
+      length = path.getTotalLength();
+      path.style.strokeDasharray = length;
+      path.style.strokeDashoffset = length;
+      path.style.transition = 'stroke-dashoffset ' + CHART_ANIM_MS + 'ms ease';
+
+      areaPath.style.opacity = '0';
+      areaPath.style.transition = 'opacity ' + CHART_ANIM_MS + 'ms ease';
+
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            playAnimation();
+            observer.disconnect();
+          }
+        });
+      }, { threshold: 0.4 });
+      observer.observe(path);
     });
-  }, { threshold: 0.4 });
-  observer.observe(path);
+  });
 
   wrap.querySelector('.btn-primary').addEventListener('click', function () {
     goToNextScreen();
