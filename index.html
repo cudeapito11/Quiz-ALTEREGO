@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>ALTER EGO — Diagnóstico</title>
+<link rel="icon" type="image/png" href="imagens/favicon.png">
+<link rel="stylesheet" href="style.css">
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+<!-- Vturb VSL player: performance preloads -->
+<link rel="preload" href="https://scripts.converteai.net/bcf1bb09-b851-4887-a1c4-476057b1927e/players/6a86e94652e9eb50c1261932/v4/player.js" as="script">
+<link rel="preload" href="https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js" as="script">
+<link rel="preload" href="https://cdn.converteai.net/bcf1bb09-b851-4887-a1c4-476057b1927e/6a86e90652e9eb50c1261912/main.m3u8" as="fetch">
+<link rel="dns-prefetch" href="https://cdn.converteai.net">
+<link rel="dns-prefetch" href="https://scripts.converteai.net">
+<link rel="dns-prefetch" href="https://images.converteai.net">
+<link rel="dns-prefetch" href="https://license.vturb.com">
+<script>!function(i,n){i._plt=i._plt||(n&&n.timeOrigin?n.timeOrigin+n.now():Date.now())}(window,performance);</script>
+</head>
+<body>
+
+  <div id="progress-wrap" class="progress-wrap hidden">
+    <div id="progress-bar" class="progress-bar">
+      <div class="segment"><div class="segment-fill"></div></div>
+      <div class="segment"><div class="segment-fill"></div></div>
+      <div class="segment"><div class="segment-fill"></div></div>
+    </div>
+    <div id="progress-segment-label" class="progress-segment-label"></div>
+    <div id="progress-next-label" class="progress-next-label"></div>
+  </div>
+
+  <main id="app"></main>
+
+  <script src="data.js"></script>
+  <script src="state.js"></script>
+  <script src="progress.js"></script>
+  <script src="components.js"></script>
+  <script src="render.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

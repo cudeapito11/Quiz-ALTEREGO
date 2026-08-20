@@ -1,0 +1,8 @@
+node_modules/
+.DS_Store
+.vscode/
+.idea/
+*.log
+
+# vídeo local não utilizado pelo quiz (VSL usa player Vturb via CDN)
+videos/
