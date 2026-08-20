@@ -120,7 +120,7 @@ var CHART_ANIM_MS = 1800;
 
 function renderChartScreen(screen) {
   var svgHtml =
-    '<svg viewBox="0 0 300 140" class="chart-svg" style="width:100%;height:auto;overflow:visible">' +
+    '<svg width="300" height="140" viewBox="0 0 300 140" class="chart-svg" style="width:100%;height:auto;overflow:visible">' +
       '<defs>' +
         '<linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">' +
           '<stop offset="0%" stop-color="#F87171"/>' +
@@ -195,7 +195,6 @@ function renderChartScreen(screen) {
 
   var played = false;
   function playAnimation() {
-    console.log('[DEBUG CHART] playAnimation executando');
     if (played) return;
     played = true;
 
@@ -225,7 +224,6 @@ function renderChartScreen(screen) {
   requestAnimationFrame(function () {
     requestAnimationFrame(function () {
       length = path.getTotalLength();
-      console.log('[DEBUG CHART] length:', length);
       path.style.strokeDasharray = length;
       path.style.strokeDashoffset = length;
 
@@ -239,10 +237,8 @@ function renderChartScreen(screen) {
 
       requestAnimationFrame(function () {
         var observer = new IntersectionObserver(function (entries) {
-          console.log('[DEBUG CHART] observer callback disparou, entries:', entries.length);
           entries.forEach(function (entry) {
             if (entry.isIntersecting) {
-              console.log('[DEBUG CHART] isIntersecting = true, intersectionRatio:', entry.intersectionRatio);
               playAnimation();
               observer.disconnect();
             }
