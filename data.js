@@ -393,6 +393,6 @@ var SCREENS = [
     newPrice: 'R$27/mês',
     cta: 'QUERO DESTRAVAR AGORA',
     secureText: 'Pagamento seguro · processado pela Hotmart',
-    checkoutUrl: 'HOTMART_CHECKOUT_URL_AQUI'
+    checkoutUrl: 'https://go.hotmart.com/K106754226E?dp=1'
   }
 ];
