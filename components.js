@@ -324,6 +324,9 @@ function renderScratchScreen(screen) {
     if (typeof confetti === 'function') {
       confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
     }
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'raspadinha_revelada');
+    }
   }
 
   function pointerDown(e) {
@@ -377,6 +380,10 @@ function loadVturbPlayerScript() {
 }
 
 function renderVslScreen(screen) {
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'entrou_vsl');
+  }
+
   var wrap = createEl(
     '<div style="margin-top:-18px;margin-bottom:-30px;">' +
       '<div class="vsl-player">' +
@@ -492,6 +499,9 @@ function renderOfferScreen(screen) {
   }, 1000);
 
   wrap.querySelector('.offer-cta-btn').addEventListener('click', function () {
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'clicou_destravar');
+    }
     window.open(screen.checkoutUrl, '_blank');
   });
 
