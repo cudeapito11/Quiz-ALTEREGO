@@ -195,6 +195,7 @@ function renderChartScreen(screen) {
 
   var played = false;
   function playAnimation() {
+    console.log('[DEBUG CHART] playAnimation executando');
     if (played) return;
     played = true;
 
@@ -224,6 +225,7 @@ function renderChartScreen(screen) {
   requestAnimationFrame(function () {
     requestAnimationFrame(function () {
       length = path.getTotalLength();
+      console.log('[DEBUG CHART] length:', length);
       path.style.strokeDasharray = length;
       path.style.strokeDashoffset = length;
 
@@ -237,8 +239,10 @@ function renderChartScreen(screen) {
 
       requestAnimationFrame(function () {
         var observer = new IntersectionObserver(function (entries) {
+          console.log('[DEBUG CHART] observer callback disparou, entries:', entries.length);
           entries.forEach(function (entry) {
             if (entry.isIntersecting) {
+              console.log('[DEBUG CHART] isIntersecting = true, intersectionRatio:', entry.intersectionRatio);
               playAnimation();
               observer.disconnect();
             }
