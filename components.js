@@ -248,13 +248,15 @@ function renderChartScreen(screen) {
       requestAnimationFrame(function () {
         var observer = new IntersectionObserver(function (entries) {
           entries.forEach(function (entry) {
+            console.log('[DEBUG CHART] isIntersecting:', entry.isIntersecting, 'ratio:', entry.intersectionRatio);
             if (entry.isIntersecting) {
               playAnimation();
               observer.disconnect();
             }
           });
         }, { threshold: 0.4 });
-        observer.observe(path);
+        var observedEl = wrap.querySelector('.chart-svg-wrap');
+        observer.observe(observedEl);
       });
     });
   });
