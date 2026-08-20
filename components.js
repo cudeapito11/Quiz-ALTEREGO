@@ -133,9 +133,9 @@ function renderChartScreen(screen) {
         '</linearGradient>' +
       '</defs>' +
       '<path id="evo-area" d="M10,115 C55,105 65,95 100,85 C140,73 165,60 200,50 C230,42 260,28 290,18 L290,140 L10,140 Z" ' +
-        'fill="url(#areaGrad)" stroke="none"/>' +
+        'fill="url(#areaGrad)" stroke="none" style="opacity:0"/>' +
       '<path id="evo-path" d="M10,115 C55,105 65,95 100,85 C140,73 165,60 200,50 C230,42 260,28 290,18" ' +
-        'fill="none" stroke="url(#lineGrad)" stroke-width="3.5" stroke-linecap="round"/>' +
+        'fill="none" stroke="url(#lineGrad)" stroke-width="3.5" stroke-linecap="round" style="opacity:0"/>' +
       '<circle id="dot-7" class="chart-dot" cx="100" cy="85" r="4" fill="#FBBF24"/>' +
       '<circle id="dot-14" class="chart-dot" cx="200" cy="50" r="4" fill="#A3E635"/>' +
       '<circle id="dot-end" class="chart-dot" cx="290" cy="18" r="5" fill="#4ADE80"/>' +
@@ -226,20 +226,26 @@ function renderChartScreen(screen) {
       length = path.getTotalLength();
       path.style.strokeDasharray = length;
       path.style.strokeDashoffset = length;
+
+      void path.getBoundingClientRect();
+
       path.style.transition = 'stroke-dashoffset ' + CHART_ANIM_MS + 'ms ease';
+      path.style.opacity = '1';
 
       areaPath.style.opacity = '0';
       areaPath.style.transition = 'opacity ' + CHART_ANIM_MS + 'ms ease';
 
-      var observer = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            playAnimation();
-            observer.disconnect();
-          }
-        });
-      }, { threshold: 0.4 });
-      observer.observe(path);
+      requestAnimationFrame(function () {
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              playAnimation();
+              observer.disconnect();
+            }
+          });
+        }, { threshold: 0.4 });
+        observer.observe(path);
+      });
     });
   });
 
